@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/x-handlebars-template">
+        <h1>Enter Product</h1>
+        <form id="agregarProducto">
+            <label for="nombre">Nombre</label>
+            <input type="text" name="nombre" id="nombre">
+            <label for="price">Price</label>
+            <input type="text" name="price" id="price">
+            <label for="thumbnail">Thumbnail</label>
+            <input type="text" name="thumbnail" id="thumbnail">
+            <button type="submit" class="agregar">Submit</button>
+        </form>
+
+    <h1>Chat</h1>
+    <form onsubmit="return addMessage(this)">
+        <input type="text" id="author" placeholder="Tu nombre">
+        <input type="text" id="text" placeholder="Cuéntanos algo....">
+        <input type="submit" value="Enviar">
+    </form>
+    <div id='messages'></div>
+
+    {{#if productos.length}}
+<h2>Lista de Productos</h2>
+    <div class="table-responsive">
+        <table class="table table-dark">
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Foto</th>
+            </tr>
+            {{#each productos}}
+            <tr>
+                <td>{{this.title}}</td>
+                <td>${{this.price}}</td>
+                <td><img width="50" src={{this.thumbnail}} alt="not found"></td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
+    {{/if}}
+</script>
+
+
+<script src='/socket.io/socket.io.js'></script>
+<script src="../js/chat.js"></script>
+<script src="../js/productos.js"></script>
+</body>
+</html>
