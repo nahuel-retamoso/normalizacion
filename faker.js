@@ -1,12 +1,15 @@
 const faker = require('faker');
 
-function generateProduct() {
-    return {
-        id: faker.random.uuid(),
-        title: faker.commerce.productName(),
-        price: faker.commerce.price(),
-        thumbnail: faker.image.image(),
-    };
+const generateProduct = () => {
+    const products = [];
+    for (let i = 0; i < 5; i++) {
+        products.push({
+            title: faker.commerce.productName(),
+            price: faker.commerce.price(),
+            thumbnail: faker.image.image()
+        })
+    }
+    return products;
 }
 
 module.exports = generateProduct;

@@ -21,13 +21,15 @@ const io = socketio(server);
 
 io.on('connection', async socket => {
     console.log('Nuevo cliente conectado!');
+    const mensajes = await MensajesDAO.getAll();
+    socket.emit('messages', mensajes);
 });
 
 io.on('new-message', async data => {
     try {
         const mensajes = new MensajesDAO();
         await mensajes.guardarMensaje(data);
-        io.sockets.emit('messages', await mensajes.obtenerMensajes());
+        io.emit('messages', await mensajes.obtenerMensajes());
         } catch (error) {
             console.log(error);
             }
