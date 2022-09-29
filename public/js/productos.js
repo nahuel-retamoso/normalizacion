@@ -28,4 +28,3 @@ function makeHtmlTable(productos) {
             return html
         })
 }
-

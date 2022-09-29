@@ -9,10 +9,17 @@ class MensajesDAO extends mongoContainer.MongoCRUD {
         });
     }
 
-    //guardar mensaje
     async guardarMensaje(mensaje) {
         try {
             return await this.create(mensaje);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async obtenerMensajes() {
+        try {
+            return await this.getAll();
         } catch (error) {
             console.log(error);
         }
