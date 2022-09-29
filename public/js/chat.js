@@ -9,7 +9,14 @@ function render(data) {
 
 function addMessage(e) {
     const mensaje = {
-        author: document.getElementById('author').value,
+        author: {
+            id: document.getElementById('id').value,
+            nombre: document.getElementById('nombre').value,
+            apellido: document.getElementById('apellido').value,
+            edad: document.getElementById('edad').value,
+            alias: document.getElementById('alias').value,
+            avatar: document.getElementById('avatar').value
+        },
         text: document.getElementById('text').value
     };
 

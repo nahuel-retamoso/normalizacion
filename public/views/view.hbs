@@ -21,8 +21,13 @@
 
     <h1>Chat</h1>
     <form onsubmit="return addMessage(this)">
-        <input type="text" id="author" placeholder="Tu nombre">
-        <input type="text" id="text" placeholder="Cuéntanos algo....">
+        <input type="text" name="email" id="id">
+        <input type="text" name="nombre" id="nombre">
+        <input type="text" name="apellido" id="apellido">
+        <input type="text" name="edad" id="edad">
+        <input type="text" name="alias" id="alias">
+        <input type="text" name="avatar" id="avatar">
+        <input type="text" name="mensaje" id="mensaje">
         <input type="submit" value="Enviar">
     </form>
     <div id='messages'></div>
