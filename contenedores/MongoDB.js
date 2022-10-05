@@ -85,4 +85,4 @@ class MongoCRUD {
     }
 }
 
-module.exports = MongoCRUD;
+module.exports = { MongoCRUD };

@@ -1,10 +1,11 @@
-const mongoContainer = require('../contenedores/MongoDB.js');
+const { MongoCRUD } = require('../contenedores/MongoDB.js');
 const normalize = require('normalizr').normalize;
+const denormalize = require('normalizr').denormalize;
 const schema = require('normalizr').schema;
 
 
 
-class MensajesDAO extends mongoContainer.MongoCRUD {
+class MensajesDAO extends MongoCRUD {
     constructor() {
         super({
             url: 'mongodb://localhost:27017',

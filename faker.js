@@ -12,4 +12,4 @@ const generateProduct = () => {
     return products;
 }
 
-module.exports = generateProduct;
+module.exports = {generateProduct};
