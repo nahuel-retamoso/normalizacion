@@ -41,4 +41,5 @@ app.get('/api/products-tests', (req, res) => {
         
         res.render('view.hbs', { product });
     }
+    io.emit('productos', product);
 });
