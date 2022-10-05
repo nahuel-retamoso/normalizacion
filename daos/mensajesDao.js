@@ -1,4 +1,8 @@
-const mongoContainer = require('./contenedores/MongoDB.js');
+const mongoContainer = require('../contenedores/MongoDB.js');
+const normalize = require('normalizr').normalize;
+const schema = require('normalizr').schema;
+
+
 
 class MensajesDAO extends mongoContainer.MongoCRUD {
     constructor() {
@@ -7,11 +11,14 @@ class MensajesDAO extends mongoContainer.MongoCRUD {
             dbName: 'ecommerce',
             collection: 'mensajes'
         });
+        this.authorSchema = new schema.Entity('author', {}, { idAttribute: 'email' });
+        this.messageSchema = new schema.Entity('message', { author: this.authorSchema });
     }
 
     async guardarMensaje(mensaje) {
         try {
-            return await this.create(mensaje);
+            const normalizedData = normalize(mensaje, this.messageSchema);
+            await this.create(normalizedData);
         } catch (error) {
             console.log(error);
         }
@@ -19,7 +26,9 @@ class MensajesDAO extends mongoContainer.MongoCRUD {
 
     async obtenerMensajes() {
         try {
-            return await this.getAll();
+            const mensajes = await this.getAll();
+            const denormalizedData = denormalize(mensajes.result, this.messageSchema, mensajes.entities);
+            return denormalizedData;
         } catch (error) {
             console.log(error);
         }

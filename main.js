@@ -1,5 +1,4 @@
 const express = require('express');
-const { Router } = express
 const { MensajesDAO } = require('./daos/mensajesDao.js');
 const socketio = require('socket.io');
 const { generateProduct } = require('./faker.js');

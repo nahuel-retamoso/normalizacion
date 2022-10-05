@@ -1,10 +1,17 @@
 const socket = io.connect();
 
+const authorSchema = new schema.Entity('author', {}, { idAttribute: 'email' });
+const messageSchema = new schema.Entity('message', { author: authorSchema });
+
 function render(data) {
     const html = data.map(elem => {
         return (`<div><strong>${elem.author}</strong>:<em>${elem.text}</em></div>`)
     }).join(" ");
     document.getElementById('messages').innerHTML = html;
+}
+
+function insertPorcentaje(porcentaje) {
+    document.getElementById('porcentaje').innerHTML = porcentaje;
 }
 
 function addMessage(e) {
@@ -20,10 +27,22 @@ function addMessage(e) {
         text: document.getElementById('text').value
     };
 
-    socket.emit('new-message', mensaje);
+    const normalizedData = normalize(mensaje, messageSchema);
+
+    socket.emit('new-message', normalizedData);
     return false;
 }
 
 socket.on('messages', data => {
-    render(data);
+    const normalizedLength = JSON.stringify(data.result).length;
+    const denormalizedData = denormalize(data.result, messageSchema, data.entities);
+    const denormalizedLength = JSON.stringify(denormalizedData).length;
+
+    const porcentaje = (normalizedLength * 100) / denormalizedLength;
+
+    render(denormalizedData);
+    insertPorcentaje(porcentaje);
 });
+
+console.log('Longitud objeto original: ', JSON.stringify(empresa).length);
+console.log('Longitud objeto normalizado: ', JSON.stringify(normalizedEmpresa).length);
